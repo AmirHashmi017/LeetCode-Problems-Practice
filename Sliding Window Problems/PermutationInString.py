@@ -1,37 +1,21 @@
 def checkInclusion(s1, s2):
-    hashtable1={}
+    hashtable1=[0]*26
+    hashtable2=[0]*26
+    if(len(s1)>len(s2)):
+        return False
     for i in range(len(s1)):
-        index=ord(s1[i])-ord('a')
-        if index not in hashtable1:
-            hashtable1[index]=0
-        hashtable1[index]+=1
-    
-    left=0
-    right=0
-    maxwindowsize=len(s1)
-    windowsize=0
-    hashtable2={}
-    print(hashtable1)
-    while(right<len(s2)):
-        if(windowsize>=maxwindowsize):
-            print(hashtable2)
-            if(hashtable1==hashtable2):
-                return True
-            else:
-                windowsize=0
-                hashtable2.clear()
-                print(hashtable2)
-                left+=1
-                right=left
-        print(right)
-        index=ord(s2[right])-ord('a')
-        if index not in hashtable2:
-            hashtable2[index]=0
-        hashtable2[index]+=1
-        windowsize+=1
-        right+=1
+        index1=ord(s1[i])-ord('a')
+        index2=ord(s2[i])-ord('a')
+        hashtable1[index1]+=1
+        hashtable2[index2]+=1
     if(hashtable1==hashtable2):
         return True
+    for right in range(len(s2)-len(s1)):
+        index=ord(s2[right])-ord('a')
+        hashtable2[index]-=1
+        hashtable2[ord(s2[right+len(s1)])-ord('a')]+=1
+        if(hashtable1==hashtable2):
+            return True
     return False
 
 print(checkInclusion("adc","dcda"))
