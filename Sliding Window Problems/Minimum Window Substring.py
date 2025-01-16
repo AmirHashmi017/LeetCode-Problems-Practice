@@ -6,44 +6,33 @@ def minWindow(s, t):
         if(t[i] not in hashtable1):
             hashtable1[t[i]]=0
         hashtable1[t[i]]+=1
+    need=len(set(t))
+    have=0
     hashtable2={}
+    minleft = -1
+    minright = -1
+    minlength=float('inf')
     minoutput=""
     output=""
     left=0
-    right=0
-    while left<len(s) and right<len(s):
-        print(left)
-        print(right)
-        print(s[right])
-        if(s[right] in hashtable1):
-            if(s[right] not in hashtable2):
-                hashtable2[s[right]]=0
-            if(hashtable2[s[right]]<hashtable1[s[right]]):
-                hashtable2[s[right]]+=1
-        output+=s[right]
-        print(hashtable2)
-        right+=1
-        if(hashtable1==hashtable2):
-            print(hashtable1)
-            print(hashtable2)
-            print(output)
-            if(len(minoutput)==0 or len(output)<len(minoutput)):
-                minoutput=output
-                print(minoutput)
-                output=""
-                hashtable2.clear()
-                print(hashtable2)
-                left+=1
-                right=left
-        if (right==len(s) and left<=len(s)-1):
-            output=""
-            hashtable2.clear()
+    for right in range(len(s)):
+        if(s[right] not in hashtable2):
+            hashtable2[s[right]]=0
+        hashtable2[s[right]]+=1
+        if(s[right] in hashtable1 and hashtable2[s[right]]==hashtable1[s[right]]):
+            have+=1
+        while(have==need):
+            if((right-left)+1<minlength):
+                minleft=left
+                minright=right
+                minlength=(right-left)+1
+            hashtable2[s[left]]-=1
+            if(s[left] in hashtable1 and hashtable2[s[left]]<hashtable1[s[left]]):
+                have-=1
             left+=1
-            right=left   
-    if(hashtable1==hashtable2):
-        if(len(minoutput)==0 or len(output)<len(minoutput)):
-            minoutput=output         
-                
-    return minoutput
+        
+    if(minleft==-1 and minright==-1):
+        return ""
+    return s[minleft:minright+1]
 
 print(minWindow("aaaaaaaaaaaabbbbbcdd","abcdd"))
