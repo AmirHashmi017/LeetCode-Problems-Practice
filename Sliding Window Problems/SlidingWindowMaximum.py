@@ -1,5 +1,6 @@
 import heapq
-def maxSlidingWindow(nums, k):
+#Solution with Heapq in O(nlogn)
+def maxSlidingWindowHeapq(nums, k):
     if(len(nums)==0):
         return []
     heap=[]
@@ -16,4 +17,4 @@ def maxSlidingWindow(nums, k):
         left+=1
     return maximumwindow
 
-print(maxSlidingWindow([1,3,-1,-3,5,3,6,7],3))
+print(maxSlidingWindowHeapq([1,3,-1,-3,5,3,6,7],3))
