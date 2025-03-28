@@ -1,20 +1,24 @@
 # Definition for singly-linked list.
-# class ListNode(object):
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
+class ListNode(object):
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
 class Solution(object):
     def mergeKLists(self, lists):
         """
         :type lists: List[Optional[ListNode]]
         :rtype: Optional[ListNode]
         """
-        if(not lists):
+        if(not lists or len(lists)==0):
             return None
-        list1=lists[0]
-        for i in range(0,len(lists)-1,1):
-            list1=self.mergeLists(list1,lists[i+1])
-        return list1
+        while(len(lists)>1):
+            mergedlists=[]
+            for i in range(0,len(lists),2):
+                list1=lists[i]
+                list2=lists[i+1] if (i+1)<len(lists) else None
+                mergedlists.append(self.mergeLists(list1,list2))
+            lists=mergedlists
+        return lists[0]
     
     def mergeLists(self,list1,list2):
 
