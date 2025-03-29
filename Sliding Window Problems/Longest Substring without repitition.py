@@ -1,18 +1,16 @@
 def lengthOfLongestSubstring(s):
-    seen={}
+    seen={None:None}
     left=0
-    maxlength=0
-    for right in range(len(s)):
-        char=s[right]
-        if(char not in seen):
-            maxlength=max(maxlength,(right-left)+1)
-        else:
-            if(seen[char]<left):
-               maxlength=max(maxlength,(right-left)+1) 
-            else:
-                left=seen[char]+1
-        seen[char]=right
-    
-    return maxlength
+    right=0
+    length=0
+    while(right<len(s)):
+        while(s[right] in seen and left<right):
+            del(seen[s[left]])
+            left+=1
+        
+        seen[s[right]]=1
+        length=max(length,right-left+1)
+        right+=1
+    return length
 
 print(lengthOfLongestSubstring("pwwkew"))
