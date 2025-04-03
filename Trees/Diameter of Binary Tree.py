@@ -5,12 +5,22 @@
 #         self.left = left
 #         self.right = right
 class Solution(object):
-    
-    def maxDepth(self, root):
+    def __init__(self):
+        self.res=0
+    def diameterOfBinaryTree(self, root):
         """
         :type root: Optional[TreeNode]
         :rtype: int
         """
+        self.DFSdiameter(root)
+        return self.res
+    def DFSdiameter(self,root):
         if not root:
             return 0
-        return 1 + max(self.maxDepth(root.left),self.maxDepth(root.right))
+        left=self.DFSdiameter(root.left)
+        right=self.DFSdiameter(root.right)
+        self.res=max(self.res,left+right)
+        return 1+max(left,right)
+
+   
+   
