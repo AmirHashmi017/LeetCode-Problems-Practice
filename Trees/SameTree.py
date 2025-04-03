@@ -12,7 +12,6 @@ class Solution(object):
         :rtype: bool
         """
        
-
         queuep=[p]
         queueq=[q]
 
